@@ -109,6 +109,9 @@ typedef void (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
 /* 64bit hashes as llseek() offset (for directories) */
 #define FMODE_64BITHASH         ((__force fmode_t)0x400)
 
+/* File needs atomic accesses to f_pos */
+#define FMODE_ATOMIC_POS        ((__force fmode_t)0x8000)
+
 /*
  * Don't update ctime and mtime.
  *
@@ -791,13 +794,14 @@ struct file {
 	const struct file_operations	*f_op;
 
 	/*
-	 * Protects f_ep_links, f_flags, f_pos vs i_size in lseek SEEK_CUR.
+	 * Protects f_ep_links, f_flags.
 	 * Must not be taken from IRQ context.
 	 */
 	spinlock_t		f_lock;
 	atomic_long_t		f_count;
 	unsigned int 		f_flags;
 	fmode_t			f_mode;
+	struct mutex		f_pos_lock;
 	loff_t			f_pos;
 	struct fown_struct	f_owner;
 	const struct cred	*f_cred;
