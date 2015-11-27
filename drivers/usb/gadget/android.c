@@ -3730,6 +3730,13 @@ static int android_bind(struct usb_composite_dev *cdev)
 			return ret;
 	}
 
+	/* Init the supported functions only once, on the first android_dev */
+	if (android_dev_count == 1) {
+		ret = android_init_functions(dev->functions, cdev);
+		if (ret)
+			return ret;
+	}
+
 	return 0;
 }
 
