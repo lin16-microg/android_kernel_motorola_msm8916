@@ -808,7 +808,4 @@ static inline  unsigned long tracing_get_trace_buf_size(void)
 # define REBUILD_DUE_TO_FTRACE_MCOUNT_RECORD
 #endif
 
-/* To identify board information in panic logs, set this */
-extern char *mach_panic_string;
-
 #endif
