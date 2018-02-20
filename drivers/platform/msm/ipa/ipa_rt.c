@@ -1114,6 +1114,23 @@ int __ipa_del_rt_rule(u32 rule_hdl)
 		}
 	}
 
+	/* Adding check to confirm still
+	 * header entry present in header table or not
+	 */
+	if (entry->hdr) {
+		hdr_entry = ipa_id_find(entry->rule.hdr_hdl);
+		if (!hdr_entry || hdr_entry->cookie != IPA_HDR_COOKIE) {
+			IPAERR("Header entry already deleted\n");
+			return -EPERM;
+		}
+	} else if (entry->proc_ctx) {
+		hdr_proc_entry = ipa_id_find(entry->rule.hdr_proc_ctx_hdl);
+		if (!hdr_proc_entry ||
+			hdr_proc_entry->cookie != IPA_PROC_HDR_COOKIE) {
+			IPAERR("Proc header entry already deleted\n");
+			return -EINVAL;
+		}
+	}
 	if (entry->hdr)
 		__ipa_release_hdr(entry->hdr->id);
 	else if (entry->proc_ctx)
