@@ -673,6 +673,7 @@ extern struct sk_buff *skb_morph(struct sk_buff *dst, struct sk_buff *src);
 extern int skb_copy_ubufs(struct sk_buff *skb, gfp_t gfp_mask);
 extern struct sk_buff *skb_clone(struct sk_buff *skb,
 				 gfp_t priority);
+extern void skb_copy_header(struct sk_buff *new, const struct sk_buff *old);
 extern struct sk_buff *skb_copy(const struct sk_buff *skb,
 				gfp_t priority);
 extern struct sk_buff *__pskb_copy(struct sk_buff *skb,
