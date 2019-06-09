@@ -112,6 +112,9 @@ typedef void (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
 /* File needs atomic accesses to f_pos */
 #define FMODE_ATOMIC_POS        ((__force fmode_t)0x8000)
 
+/* File is stream-like */
+#define FMODE_STREAM            ((__force fmode_t)0x200000)
+
 /*
  * Don't update ctime and mtime.
  *
@@ -2483,6 +2486,7 @@ extern loff_t fixed_size_llseek(struct file *file, loff_t offset,
 		int whence, loff_t size);
 extern int generic_file_open(struct inode * inode, struct file * filp);
 extern int nonseekable_open(struct inode * inode, struct file * filp);
+extern int stream_open(struct inode * inode, struct file * filp);
 
 #ifdef CONFIG_FS_XIP
 extern ssize_t xip_file_read(struct file *filp, char __user *buf, size_t len,
