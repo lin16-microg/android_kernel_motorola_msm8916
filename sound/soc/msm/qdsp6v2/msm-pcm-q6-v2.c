@@ -795,6 +795,11 @@ static int msm_pcm_capture_copy(struct snd_pcm_substream *substream,
 			xfer = size;
 		offset = in_frame_info[idx][1];
 		pr_debug("Offset value = %d\n", offset);
+		if (size == 0 || size < fbytes) {
+			memset(bufptr + offset + size, 0, fbytes - size);
+			size = xfer = fbytes;
+		}
+
 		if (copy_to_user(buf, bufptr+offset, xfer)) {
 			pr_err("Failed to copy buf to user\n");
 			ret = -EFAULT;
