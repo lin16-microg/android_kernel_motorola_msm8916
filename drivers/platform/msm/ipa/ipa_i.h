@@ -145,6 +145,8 @@
 #define MAX_RESOURCE_TO_CLIENTS (5)
 #define IPA_MEM_PART(x_) (ipa_ctx->ctrl->mem_partition.x_)
 
+#define IPA_RULE_CNT_MAX 512
+
 struct ipa_client_names {
 	enum ipa_client_type names[MAX_RESOURCE_TO_CLIENTS];
 	int length;
