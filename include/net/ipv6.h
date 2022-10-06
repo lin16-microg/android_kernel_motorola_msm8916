@@ -837,6 +837,7 @@ extern void			ipv6_icmp_error(struct sock *sk, struct sk_buff *skb, int err, __b
 extern void			ipv6_local_error(struct sock *sk, int err, struct flowi6 *fl6, u32 info);
 extern void			ipv6_local_rxpmtu(struct sock *sk, struct flowi6 *fl6, u32 mtu);
 
+extern void inet6_cleanup_sock(struct sock *sk);
 extern int inet6_release(struct socket *sock);
 extern int inet6_bind(struct socket *sock, struct sockaddr *uaddr, 
 		      int addr_len);
